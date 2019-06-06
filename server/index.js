@@ -1,22 +1,26 @@
 import express from "express";
 import mongoose from "mongoose";
-import bodyParser from "body-parser";
 import path from "path";
 import dotenv from "dotenv";
 import items from "./items/routes";
+import users from "./users/routes";
 
 const app = express();
 dotenv.config();
 
-//here we are using bodyparse middleware
-app.use(bodyParser.json());
+//here we are using bodyparse from the express library
+app.use(express.json());
 
 mongoose
-  .connect(process.env.DATABASE_URL, { useNewUrlParser: true })
+  .connect(process.env.DATABASE_URL, {
+    useNewUrlParser: true,
+    useCreateIndex: true
+  })
   .then(() => console.log("MongoDB Connected .... "))
   .catch(err => console.log(err));
 
 app.use("/api/items", items);
+app.use("/api/users", users);
 
 //Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
