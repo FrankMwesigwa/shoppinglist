@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import Proptypes from "prop-types";
 import { Container, Button, ListGroup, ListGroupItem } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import uuid from "uuid";
 import { connect } from "react-redux";
-import { getItems } from "../store/items/actions";
+import { getItems, deleteItem } from "../store/items/actions";
 
 class ShoppingList extends Component {
   static propTypes = {
@@ -16,25 +15,14 @@ class ShoppingList extends Component {
     this.props.getItems();
   }
 
+  onDeleteHandler = id => {
+    this.props.deleteItem(id);
+  };
+
   render() {
     const { items } = this.props.item;
-    console.log("xxxxx", items);
     return (
       <Container>
-        <Button
-          color="dark"
-          style={{ marginBottom: "2rem" }}
-          onClick={() => {
-            const name = prompt("Enter Name");
-            if (name) {
-              this.setState(state => ({
-                items: [...state.items, { id: uuid(), name }]
-              }));
-            }
-          }}
-        >
-          Add Item
-        </Button>
         <ListGroup>
           <TransitionGroup className="shopping-list">
             {items.map(({ id, name }) => (
@@ -43,11 +31,7 @@ class ShoppingList extends Component {
                   <Button
                     className="remove-btn"
                     color="danger"
-                    onClick={() => {
-                      this.setState(state => ({
-                        items: state.items.filter(item => item.id !== id)
-                      }));
-                    }}
+                    onClick={this.onDeleteHandler.bind(this, id)}
                   >
                     &times;
                   </Button>
@@ -68,5 +52,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getItems }
+  { getItems, deleteItem }
 )(ShoppingList);

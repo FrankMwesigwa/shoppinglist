@@ -33,7 +33,8 @@
     "eject": "react-scripts eject",
     "server": "nodemon server/index.js --exec babel-node --presets babel-preset-env",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn start\"",
-    "precommit": "pretty-quick --staged"
+    "precommit": "pretty-quick --staged",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION =false yarn install && yarn build"
   },
   "eslintConfig": {
     "extends": "react-app"

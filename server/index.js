@@ -1,8 +1,9 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
-import dotenv from 'dotenv';
-import items from './items/routes';
+import express from "express";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import path from "path";
+import dotenv from "dotenv";
+import items from "./items/routes";
 
 const app = express();
 dotenv.config();
@@ -10,12 +11,22 @@ dotenv.config();
 //here we are using bodyparse middleware
 app.use(bodyParser.json());
 
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
-    .then(() => console.log('MongoDB Connected .... '))
-    .catch(err => console.log(err));
+mongoose
+  .connect(process.env.DATABASE_URL, { useNewUrlParser: true })
+  .then(() => console.log("MongoDB Connected .... "))
+  .catch(err => console.log(err));
 
-app.use('/api/items', items)
+app.use("/api/items", items);
 
-const port = process.env.PORT || 9005
+//Serve static assets if in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
 
-app.listen(port, () => console.log(`Server started on port ${port}`))
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
+
+const port = process.env.PORT || 9005;
+
+app.listen(port, () => console.log(`Server started on port ${port}`));
