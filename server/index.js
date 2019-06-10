@@ -4,6 +4,7 @@ import path from "path";
 import dotenv from "dotenv";
 import items from "./items/routes";
 import users from "./users/routes";
+import auth from "./auth/routes";
 
 const app = express();
 dotenv.config();
@@ -21,6 +22,7 @@ mongoose
 
 app.use("/api/items", items);
 app.use("/api/users", users);
+app.use("/api/login", auth);
 
 //Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
