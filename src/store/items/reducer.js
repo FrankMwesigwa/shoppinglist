@@ -1,13 +1,13 @@
-import uuid from "uuid";
-import { constants } from "./actions";
+import uuid from 'uuid';
+import { constants } from './actions';
 
 const initialState = {
   items: [
-    { id: uuid(), name: "Kampala" },
-    { id: uuid(), name: "Jinja" },
-    { id: uuid(), name: "Masaka" },
-    { id: uuid(), name: "Mbale" },
-    { id: uuid(), name: "Kamwenge" }
+    { id: uuid(), name: 'Kampala' },
+    { id: uuid(), name: 'Jinja' },
+    { id: uuid(), name: 'Masaka' },
+    { id: uuid(), name: 'Mbale' },
+    { id: uuid(), name: 'Kamwenge' }
   ]
 };
 
