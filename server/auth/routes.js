@@ -25,14 +25,14 @@ router.post(
       let user = await User.findOne({ email });
       if (!user) {
         return res.status(400).json({
-          errors: [{ msg: 'Invalid email address' }]
+          errors: [{ msg: 'Invalid email address provided' }]
         });
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
         return res.status(400).json({
-          errors: [{ msg: 'Invalid password' }]
+          errors: [{ msg: 'Invalid password provided' }]
         });
       }
 
@@ -51,7 +51,7 @@ router.post(
   }
 );
 
-router.get('/', auth, async (req, res) => {
+router.get('/auth', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
     res.json(user);

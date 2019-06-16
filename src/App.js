@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import NavBar from './components/layout/navbar';
@@ -7,24 +7,34 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Alert from './components/layout/Alert';
 
-class App extends Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <Fragment>
-          <NavBar />
-          <Route exact path="/" component={Landing} />
-          <section className="container">
-            <Alert />
-            <Switch>
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-            </Switch>
-          </section>
-        </Fragment>
-      </BrowserRouter>
-    );
-  }
+import setAuthToken from './helpers/setAuthToken';
+import { loadUser } from './store/auth/actions';
+import store from './store';
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
 }
+
+const App = () => {
+  useEffect(() => {
+    store.dispatch(loadUser);
+  }, []);
+
+  return (
+    <BrowserRouter>
+      <Fragment>
+        <NavBar />
+        <Route exact path="/" component={Landing} />
+        <section className="container">
+          <Alert />
+          <Switch>
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+          </Switch>
+        </section>
+      </Fragment>
+    </BrowserRouter>
+  );
+};
 
 export default App;
