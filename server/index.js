@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import connectDB from './configs/db';
 import users from './users/routes';
 import auth from './auth/routes';
+import profile from './profiles/routes';
 
 const app = express();
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(express.json());
 
 app.use('/users', users);
 app.use('/account', auth);
+app.use('/profile', profile);
 
 //Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
