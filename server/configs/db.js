@@ -1,6 +1,4 @@
 import mongoose from 'mongoose';
-import router from '../profiles/routes';
-import profile from '../profiles/profile';
 
 const connectDB = async () => {
   try {

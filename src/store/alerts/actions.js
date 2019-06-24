@@ -7,10 +7,6 @@ export const constants = {
 
 export const setAlert = (msg, alertType) => dispatch => {
   const id = uuid.v4();
-  dispatch({
-    type: constants.SET_ALERT,
-    payload: { msg, alertType, id }
-  });
-
+  dispatch({ type: constants.SET_ALERT, payload: { msg, alertType, id } });
   setTimeout(() => dispatch({ type: constants.REMOVE_ALERT, payload: id }), 5000);
 };

@@ -9,7 +9,8 @@ export const constants = {
   AUTH_ERROR: 'AUTH_ERROR',
   LOGIN_SUCCESS: 'LOGIN_SUCCESS',
   LOGIN_FAIL: 'LOGIN_FAIL',
-  LOGOUT_SUCCESS: 'LOGOUT_SUCCESS'
+  LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
+  CLEAR_PROFILE: 'CLEAR_PROFILE'
 };
 
 export const loadUser = () => async dispatch => {
@@ -67,5 +68,6 @@ export const login = (email, password) => async dispatch => {
 };
 
 export const logout = () => dispatch => {
+  dispatch({ type: constants.CLEAR_PROFILE });
   dispatch({ type: constants.LOGOUT_SUCCESS });
 };
