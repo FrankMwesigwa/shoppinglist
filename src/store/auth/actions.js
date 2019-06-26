@@ -26,15 +26,9 @@ export const loadUser = () => async dispatch => {
   }
 };
 
-export const register = ({ name, email, password }) => async dispatch => {
-  const config = {
-    headers: { 'content-type': 'application/json' }
-  };
-
-  const body = JSON.stringify({ name, email, password });
-
+export const register = userdata => async dispatch => {
   try {
-    const res = await axios.post('/users', body, config);
+    const res = await axios.post('/users/register', userdata);
     dispatch({ type: constants.REGISTER_SUCCESS, payload: res.data });
   } catch (err) {
     const errors = err.response.data.errors;
@@ -46,15 +40,9 @@ export const register = ({ name, email, password }) => async dispatch => {
   }
 };
 
-export const login = (email, password) => async dispatch => {
-  const config = {
-    headers: { 'content-type': 'application/json' }
-  };
-
-  const body = JSON.stringify({ email, password });
-
+export const login = logindata => async dispatch => {
   try {
-    const res = await axios.post('/account/login', body, config);
+    const res = await axios.post('/account/login', logindata);
     dispatch({ type: constants.LOGIN_SUCCESS, payload: res.data });
     dispatch(loadUser());
   } catch (err) {

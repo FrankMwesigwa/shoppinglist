@@ -2,6 +2,9 @@ import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 
+import GetArticles from './articles/getArticles';
+import PostArticle from './articles/postArticle';
+
 import NavBar from './components/layout/navbar';
 import Landing from './components/layout/landing';
 import Register from './components/auth/Register';
@@ -29,8 +32,11 @@ const App = () => {
   return (
     <BrowserRouter>
       <Fragment>
-        <NavBar />
+        <Route exact path="/articles" component={GetArticles} />
+        <Route exact path="/articles/post" component={PostArticle} />
+        {/*<NavBar /> */}
         <Route exact path="/" component={Landing} />
+
         <section className="container">
           <Alert />
           <Switch>

@@ -19,10 +19,7 @@ export const getCurrentProfile = () => async dispatch => {
 
 export const addProfile = (formData, history, edit = false) => async dispatch => {
   try {
-    const config = {
-      headers: { 'content-type': 'application/json' }
-    };
-    const res = await axios.post('/profile', formData, config);
+    const res = await axios.post('/profile', formData);
     dispatch({ type: constants.GET_PROFILE, payload: res.data });
     dispatch(
       setAlert(edit ? 'Profile Updated Successfully' : 'Profile Created Succesfully', 'success')
@@ -37,19 +34,13 @@ export const addProfile = (formData, history, edit = false) => async dispatch =>
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }
-    dispatch({
-      type: constants.PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
+    dispatch({ type: constants.PROFILE_ERROR });
   }
 };
 
 export const addExperience = (formData, history) => async dispatch => {
   try {
-    const config = {
-      headers: { 'content-type': 'application/json' }
-    };
-    const res = await axios.post('/profile/experience', formData, config);
+    const res = await axios.post('/profile/experience', formData);
     dispatch({ type: constants.UPDATE_PROFILE, payload: res.data });
     dispatch(setAlert('Profile Updated Successfully', 'success'));
     history.push('/dashboard');
@@ -60,18 +51,14 @@ export const addExperience = (formData, history) => async dispatch => {
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
-      type: constants.PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      type: constants.PROFILE_ERROR
     });
   }
 };
 
 export const addEducation = (formData, history) => async dispatch => {
   try {
-    const config = {
-      headers: { 'content-type': 'application/json' }
-    };
-    const res = await axios.post('/profile/education', formData, config);
+    const res = await axios.post('/profile/education', formData);
     dispatch({ type: constants.UPDATE_PROFILE, payload: res.data });
     dispatch(setAlert('Profile Updated Successfully', 'success'));
     history.push('/dashboard');
@@ -82,8 +69,7 @@ export const addEducation = (formData, history) => async dispatch => {
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
-      type: constants.PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      type: constants.PROFILE_ERROR
     });
   }
 };
