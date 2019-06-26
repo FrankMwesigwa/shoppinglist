@@ -6,19 +6,19 @@ import users from './users/routes';
 import auth from './auth/routes';
 import profile from './profiles/routes';
 import posts from './posts/routes';
+import articles from './articles/routes';
 
 const app = express();
 dotenv.config();
-
 connectDB();
 
-//here we are using bodyparse from the express library
 app.use(express.json());
 
 app.use('/users', users);
 app.use('/account', auth);
 app.use('/profile', profile);
 app.use('/posts', posts);
+app.use('/articles', articles);
 
 //Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {

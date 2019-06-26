@@ -4,6 +4,8 @@ import './App.css';
 
 import GetArticles from './articles/getArticles';
 import PostArticle from './articles/postArticle';
+import ArticleDetails from './articles/articlesDetails';
+import EditArticle from './articles/editArticle';
 
 import NavBar from './components/layout/navbar';
 import Landing from './components/layout/landing';
@@ -34,6 +36,8 @@ const App = () => {
       <Fragment>
         <Route exact path="/articles" component={GetArticles} />
         <Route exact path="/articles/post" component={PostArticle} />
+        <Route exact path="/articles/:id" component={ArticleDetails} />
+        <Route exact path="/articles/:id/edit" component={EditArticle} />
         {/*<NavBar /> */}
         <Route exact path="/" component={Landing} />
 
