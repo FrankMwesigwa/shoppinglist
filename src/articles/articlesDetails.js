@@ -9,7 +9,7 @@ class ArticleDetails extends Component {
   }
 
   render() {
-    const article = this.props.article;
+    const { article } = this.props.article;
     return (
       <div>
         <h2>
@@ -40,7 +40,7 @@ class ArticleDetails extends Component {
   }
 }
 
-const mapStateToProps = state => ({ article: state.articles });
+const mapStateToProps = state => ({ article: state.article.article });
 
 export default connect(
   mapStateToProps,

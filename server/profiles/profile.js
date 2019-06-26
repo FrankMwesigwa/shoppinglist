@@ -22,7 +22,7 @@ const Schema = mongoose.Schema({
   githubusername: {
     type: String
   },
-  experiences: [
+  experience: [
     {
       title: {
         type: String,
@@ -55,16 +55,12 @@ const Schema = mongoose.Schema({
   education: [
     {
       school: {
-        type: Boolean,
+        type: String,
         default: false
       },
       degree: {
         type: String,
         required: true
-      },
-      fieldofstudy: {
-        type: Boolean,
-        default: false
       },
       from: {
         type: Date,

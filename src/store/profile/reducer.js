@@ -2,8 +2,8 @@ import { constants } from './actions';
 import { constants as CLEAR_PROFILE } from '../auth/actions';
 
 const initialState = {
-  profile: null,
-  profiles: null,
+  profile: {},
+  profiles: [],
   isLoading: true,
   error: {}
 };
@@ -16,13 +16,12 @@ const profileReducer = (state = initialState, action) => {
         isLoading: true
       };
     case constants.GET_PROFILE:
+    case constants.UPDATE_PROFILE:
       return {
         ...state,
         profile: action.payload,
         isLoading: false
       };
-    case constants.UPDATE_PROFILE:
-
     case constants.PROFILE_ERROR:
       return {
         ...state,

@@ -118,15 +118,29 @@ router.delete('/', async (req, res) => {
 
 router.put('/experience', auth, async (req, res) => {
   const { title, company, location, from, to, current, description } = req.body;
-  const newExperience = { title, company, location, from, to, current, description };
+  const experience = { title, company, location, from, to, current, description };
   try {
     const profile = await Profile.findOne({ user: req.user.id });
-    profile.experience.unshift(newExperience);
+    profile.experience.unshift(experience);
     await profile.save();
-    res.json(profile);
+    res.json({ msg: 'Experience added succesfully' });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).json('Internal Server Error');
+  }
+});
+
+router.put('/education', auth, async (req, res) => {
+  const { school, degree, from, to, current, description } = req.body;
+  const education = { school, degree, from, to, current, description };
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+    profile.education.unshift(education);
+    await profile.save();
+    res.json({ msg: 'Education added succesfully' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json('Internal Server Error');
   }
 });
 
@@ -138,7 +152,22 @@ router.delete('/experience/:expid', auth, async (req, res) => {
     profile.experience.splice(removeIndex, 1);
     await profile.save();
 
-    res.json({ msg: 'experience deleted successfully' });
+    res.json({ msg: 'experience removed successfully' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+router.delete('/education/:expid', auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+    const removeIndex = profile.education.map(item => item.id).indexOf(req.params.expid);
+
+    profile.experience.splice(removeIndex, 1);
+    await profile.save();
+
+    res.json({ msg: 'education removed successfully' });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

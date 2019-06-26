@@ -28,7 +28,7 @@ router.post('/login', async (req, res) => {
       user: { id: user.id }
     };
 
-    jwt.sign(payload, process.env.secret, { expiresIn: 3600000 }, (err, token) => {
+    jwt.sign(payload, process.env.secret, { expiresIn: 360000000 }, (err, token) => {
       if (err) throw err;
       res.json({ token });
     });
